@@ -8,10 +8,11 @@ const path = require('path');
 const app = express();
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'my-secret-key',
   resave: false,
   saveUninitialized: false,
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -21,7 +22,7 @@ passport.deserializeUser((user, done) => done(null, user));
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: process.env.BASE_URL + '/auth/github/callback',
+  callbackURL: `${process.env.BASE_URL}/auth/github/callback`,
 }, (accessToken, refreshToken, profile, done) => {
   return done(null, {
     id: profile.id,
@@ -56,4 +57,4 @@ app.get('*', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('Server running on port ' + PORT));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
