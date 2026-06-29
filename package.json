@@ -1,0 +1,16 @@
+{
+  "name": "atrium",
+  "version": "1.0.0",
+  "description": "Atrium - платформа-сообщество для разработчиков",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "express-session": "^1.17.0",
+    "passport": "^0.6.0",
+    "passport-github2": "^0.1.12"
+  }
+}
