@@ -2767,6 +2767,10 @@ function closeNewTopicModal(){document.getElementById('new-topic-modal').style.d
 function submitNewTopic(){const title=document.getElementById('new-topic-title').value.trim(),body=document.getElementById('new-topic-body').value.trim();if(!title){toast('Введите заголовок');return;}const d=getComData(APP.currentCommunity);d.topics.unshift({id:'u'+Date.now(),title,excerpt:body||'Нет описания.',author:APP.user.name,authorColor:'#014BAA',time:'только что',likes:0,comments:0,tag:'Новое'});closeNewTopicModal();renderComPosts(d.topics);toast('Тема опубликована! 🎉');}
 document.getElementById('new-topic-modal').addEventListener('click',function(e){if(e.target===this)closeNewTopicModal();});
 
+function loginWithGitHub(){window.location.href='/auth/github';}
+function loginWithGoogle(){window.location.href='/auth/google';}
+fetch('/api/me').then(r=>r.json()).then(function(d){if(d.user){APP.loggedIn=true;APP.user=d.user;}});
+  document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.social-btn').forEach(function(b){if(b.textContent.includes('GitHub'))b.onclick=function(){window.location.href='/auth/github';};if(b.textContent.includes('Google'))b.onclick=function(){window.location.href='/auth/google';};});});
 </script>
 <!-- ═══ MOBILE BOTTOM NAV ═══ -->
 <nav class="mobile-nav" id="mobile-nav">
